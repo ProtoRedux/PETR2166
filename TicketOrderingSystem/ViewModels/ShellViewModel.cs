@@ -20,7 +20,7 @@ namespace TicketOrderingSystem.ViewModels
             Ticket.Add(new TicketModel { Name = "Student", Description = "Standard seated accomodation for single student", Price = 14.99});
 
         }
-
+        //probs delete
         private string _firstName ="Tim";
         private string _lastName = "Allen";
         public string FirstName
