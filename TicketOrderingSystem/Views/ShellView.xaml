@@ -35,11 +35,22 @@
             <!--Row 3-->
             <RowDefinition Height="Auto"/>
             <!--Row 4-->
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <!--Row 5-->
             <RowDefinition Height="Auto"/>
             <!--Row 6-->
+            <RowDefinition Height="Auto"/>
+            <!--Row 7-->
+            <RowDefinition Height="Auto"/>
+            <!--Row 8-->
+            <RowDefinition Height="Auto"/>
+            <!--Row 9-->
+            <RowDefinition Height="Auto"/>
+            <!--Row 10-->
+            <RowDefinition Height="*"/>
+            <!--Row 11-->
             <RowDefinition Height="20"/>
+
         </Grid.RowDefinitions>
         
         <!--Grid Row 1-->
@@ -56,10 +67,29 @@
         <TextBlock MinWidth="100" Grid.Row="3" Grid.Column="3" x:Name ="SelectedTicket_Description" ></TextBlock>
         <TextBlock Grid.Row="3" Grid.Column="6" x:Name ="SelectedTicket_Price" />
         <!--Grid Row 4-->
-        <ContentControl Grid.Row="4" Grid.Column="3" x:Name="ActiveItem"></ContentControl>
-        <!-- Grid Row 5-->
-        <Button x:Name="ClearText" Grid.Row="5" Grid.Column="1">Clear Names</Button>
-        <Button Grid.Row="5" Grid.Column="6" x:Name="LoadPageOne">Load Child</Button>
+        <TextBlock MinWidth="100" Grid.Row="4" Grid.Column="1">Add-ons</TextBlock>
+        <TextBlock MinWidth="100" Grid.Row="4" Grid.Column="3">Add-on Description</TextBlock>
+        <TextBlock MinWidth="100" Grid.Row="4" Grid.Column="6">Add-on Price</TextBlock>
+        <!--Grid Row 5-->
+        <Button x:Name="AdultMealAdd"  Grid.Row="5" Grid.Column="1">Add Adult Meal</Button>
+        <TextBlock Grid.Row="5" Grid.Column="3" x:Name="AdultMeal"></TextBlock>
+        <TextBlock MinWidth="100" Grid.Row="5" Grid.Column="6" x:Name="AMealPrice"></TextBlock>
+        <!-- Grid Row 6-->
+        <Button x:Name="ChildMealAdd"  Grid.Row="6" Grid.Column="1">Add Child Meal</Button>
+        <TextBlock Grid.Row="6" Grid.Column="3" x:Name="ChildMeal"></TextBlock>
+        <TextBlock MinWidth="100" Grid.Row="6" Grid.Column="6" x:Name="CMealPrice"></TextBlock>
+        <!-- Grid Row 7-->
+        <Button x:Name ="VIPSeatadd"  Grid.Row="7" Grid.Column="1">Add VIP Seating</Button>
+        <TextBlock Grid.Row="7" Grid.Column="3" x:Name="VipSeat"></TextBlock>
+        <TextBlock MinWidth="100" Grid.Row="7" Grid.Column="6" x:Name="VipPrice" ></TextBlock>
+
+        <!-- Grid Row 8-->
+        <Button x:Name="ClearText" Grid.Row="8" Grid.Column="1">Clear Text</Button>
+        <Button x:Name="SubTotalGive" Grid.Row="8" Grid.Column="6">Subtotal</Button>
+        <!-- Grid Row 9-->
+        <TextBlock x:Name="Subtotal" Grid.Row="9" Grid.Column="6"></TextBlock>
         
+        <!-- Grid Row 10 -->
+        <ListBox Grid.Row="10" Grid.Column="1" x:Name="AddonPriceList"></ListBox>
     </Grid>
 </Window>
