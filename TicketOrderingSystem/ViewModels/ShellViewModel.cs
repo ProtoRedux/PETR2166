@@ -11,7 +11,7 @@ namespace TicketOrderingSystem.ViewModels
     //created class for intial view model inheriting from caliburn screen parent
     public class ShellViewModel : Conductor<object>
     {
-
+        // ---------list item instantiation of main classes and addons
         public ShellViewModel()
         {
             Ticket.Add(new TicketModel { Name = "Adult", Description = "Standard seated accomodation for single adult", Price = 19.99 });
@@ -22,10 +22,22 @@ namespace TicketOrderingSystem.ViewModels
             AddonPriceList.Add(CMealPrice);
             AddonPriceList.Add(VipPrice);
             double sum = AddonPriceList.Sum();
-
-
         }
-        //probs delete
+
+        //------Private varibles used in solution
+        private TicketModel _selectedTicket;
+        private string  _adultmeal = "";
+        private string _childmeal = "";
+        private string _vipseat = "";
+        private BindableCollection<TicketModel> _ticket = new BindableCollection<TicketModel>();
+        private BindableCollection<double> _addonPriceList = new BindableCollection<double>();
+        private double _amealprice = 7.00;
+        private double _vipprice = 5.00;
+        private double _cmealprice = 4.50;
+
+
+
+        //DELETE BEFORE SUBMISSION
         private string _firstName ="Tim";
         private string _lastName = "Allen";
         public string FirstName
@@ -58,11 +70,11 @@ namespace TicketOrderingSystem.ViewModels
         }
         public string FullName
         {
-            get { return $"{FirstName } { LastName }"; }
+            get { return $"{FirstName } { AdultMeal }"; }
 
         }
 
-        private BindableCollection<TicketModel> _ticket = new BindableCollection<TicketModel>();
+        //------------Created list for main ticket classes
         //Bindable collection in MVVM is essentaily a list
         public BindableCollection<TicketModel> Ticket
         {
@@ -70,8 +82,7 @@ namespace TicketOrderingSystem.ViewModels
             set { _ticket = value; }
         }
 
-        private TicketModel _selectedTicket;
-
+        //-------- Constructor for selecting ticket type from combo box
         public TicketModel SelectedTicket
         {
             get
@@ -84,9 +95,7 @@ namespace TicketOrderingSystem.ViewModels
                 NotifyOfPropertyChange(() => SelectedTicket);
             }
         }
-
-
-        private string  _adultmeal = "";
+        // get and set constructors for addon string variables
         public string AdultMeal
         {
             get
@@ -95,7 +104,6 @@ namespace TicketOrderingSystem.ViewModels
             {_adultmeal = value;
              NotifyOfPropertyChange(() => AdultMeal);}
         }
-        private string _childmeal = "";
         public string ChildMeal
         {
             get
@@ -105,7 +113,6 @@ namespace TicketOrderingSystem.ViewModels
                 NotifyOfPropertyChange(() => ChildMeal);}
         }
 
-        private string _vipseat = "";
         public string VipSeat
         {
             get { return _vipseat; }
@@ -113,6 +120,18 @@ namespace TicketOrderingSystem.ViewModels
                 NotifyOfPropertyChange(()=>VipSeat);}
         }
 
+        // --- Get and set constructors for addon prices
+        public double AMealPrice
+        { get { return _amealprice; } 
+          set { _amealprice = value;} }
+        public double VipPrice 
+        { get { return _vipprice; }set { _vipprice = value; } }
+        public double CMealPrice 
+        { get { return _cmealprice; }
+          set { _cmealprice = value; } 
+        }
+
+        // ------------Methods for assigning string and double values to addons when corresponding button pressed
         public void ChildMealAdd(string _childmeal, double _cmealprice)
         {
             ChildMeal = "Sausage, chips & Softdrink";
@@ -139,30 +158,18 @@ namespace TicketOrderingSystem.ViewModels
             NotifyOfPropertyChange(() => AddonPriceList);
         }
 
-        private double _amealprice = 0.00;
-        private double _vipprice = 0.00;
-        private double _cmealprice = 0.00;
 
-        public double AMealPrice
-        { get { return _amealprice; } 
-          set { _amealprice = value;} }
-        public double VipPrice 
-        { get { return _vipprice; }set { _vipprice = value; } }
-        public double CMealPrice 
-        { get { return _cmealprice; }
-          set { _cmealprice = value; } }
 
         
-
-        private BindableCollection<double> _addonPriceList = new BindableCollection<double>();
+        // get ans set constructors fro addon price list
         public BindableCollection<double> AddonPriceList
         { 
             get { return _addonPriceList;}
-            set { _addonPriceList = value; } 
+            set { _addonPriceList = value;} 
         }
 
         
-
+        // ---- method to give sum value of all addon prices when subtotal button clicked 
         public void SubTotalGive(double sum)
         {
             double Subtotal = sum;
@@ -171,14 +178,14 @@ namespace TicketOrderingSystem.ViewModels
 
         }
 
-        //method to remove text from form
+        //method to remove text from form -DELETE BEFORE SUBMISSION
         public void ClearText(string firstname, string lastname)
         {
             FirstName = " ";
             LastName = "";
         }
 
-        //method to check if text is in form
+        //method to check if text is in form - DELETE BEFORE SUBMISSION
         public bool CanClearText(string firstname, string lastname)
         {
 
@@ -192,7 +199,7 @@ namespace TicketOrderingSystem.ViewModels
             }
         }
 
-        //creates seperate view to show current selections.
+        //creates seperate view to show current selections. - DELETE BEFORE SUBMISSION
         public void LoadPageOne()
         {
             ActivateItemAsync(new FirstChildViewModel());
