@@ -55,15 +55,14 @@
         
         <!--Grid Row 1-->
         <TextBlock MinWidth="100" Grid.Row="1" Grid.Column="3">Exe River Sports Ticket Ordering System</TextBlock>
-        <TextBlock Text="{Binding Path=FullName, Mode=OneWay}"  Grid.Row="1" Grid.Column="1"></TextBlock>
+
         <!--Grid Row 2-->
         <TextBlock MinWidth="100" Grid.Row="2" Grid.Column="1">Select Ticket Type</TextBlock>
         <TextBlock MinWidth="100" Grid.Row="2" Grid.Column="3">Selected Ticket Description</TextBlock>
         <TextBlock MinWidth="100" Grid.Row="2" Grid.Column="6">Ticket Price</TextBlock>
         <!--Grid Row 3-->
-        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="Ticket"
-                  SelectedItem="{Binding Path=SelectedTicket, Mode=OneWayToSource}"
-                  DisplayMemberPath="Name" />
+        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="TickName"
+                  SelectedItem="{Binding Path=SelectedTickName, Mode=OneWayToSource}" />
         <TextBlock MinWidth="100" Grid.Row="3" Grid.Column="3" x:Name ="SelectedTicket_Description" ></TextBlock>
         <TextBlock Grid.Row="3" Grid.Column="6" x:Name ="SelectedTicket_Price" />
         <!--Grid Row 4-->
@@ -91,5 +90,6 @@
         
         <!-- Grid Row 10 -->
         <ListBox Grid.Row="10" Grid.Column="1" x:Name="AddonPriceList"></ListBox>
+        <TextBlock Text="{Binding Path=FullTicket, Mode=OneWay}"  Grid.Row="10" Grid.Column="3"></TextBlock>
     </Grid>
 </Window>

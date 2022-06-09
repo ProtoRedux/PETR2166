@@ -21,6 +21,10 @@ namespace TicketOrderingSystem.ViewModels
             AddonPriceList.Add(AMealPrice);
             AddonPriceList.Add(CMealPrice);
             AddonPriceList.Add(VipPrice);
+            TickName.Add(AdultT);
+            TickName.Add(ChildT);
+            TickName.Add(OldT);
+
             double sum = AddonPriceList.Sum();
         }
 
@@ -29,8 +33,10 @@ namespace TicketOrderingSystem.ViewModels
         private string  _adultmeal = "";
         private string _childmeal = "";
         private string _vipseat = "";
+        private string _selectedTickName;
         private BindableCollection<TicketModel> _ticket = new BindableCollection<TicketModel>();
         private BindableCollection<double> _addonPriceList = new BindableCollection<double>();
+        private BindableCollection<string> _tickName = new BindableCollection<string>(); 
         private double _amealprice = 7.00;
         private double _vipprice = 5.00;
         private double _cmealprice = 4.50;
@@ -50,7 +56,7 @@ namespace TicketOrderingSystem.ViewModels
             { 
                 _firstName = value;
                 NotifyOfPropertyChange(()=> FirstName);
-                NotifyOfPropertyChange(()=> FullName);
+                NotifyOfPropertyChange(()=> FullTicket);
             }
         }
         public  string LastName
@@ -63,24 +69,72 @@ namespace TicketOrderingSystem.ViewModels
             {
                 _lastName = value;
                 NotifyOfPropertyChange(() => LastName);
-                NotifyOfPropertyChange(() => FullName);
+                NotifyOfPropertyChange(() => FullTicket);
+            }
+        }
+        private string _adultT = "Adult Seat";
+        private string _childT = "Child Seat";
+        private string _oldT = "O.A.P Seat";
 
+        public string AdultT 
+            { 
+            get { return _adultT; }
+            set { _adultT = value; 
+            NotifyOfPropertyChange(()=> AdultT);
+            NotifyOfPropertyChange(() => SelectedTickName);
+            NotifyOfPropertyChange(() => FullTicket);
+            } 
             }
 
-        }
-        public string FullName
+        public string ChildT
         {
-            get { return $"{FirstName } { AdultMeal }"; }
+            get { return _childT; }
+            set { _childT = value;
+                NotifyOfPropertyChange(() => ChildT);
+                NotifyOfPropertyChange(() => SelectedTickName);
+                NotifyOfPropertyChange(() => FullTicket);
+            }
+        }
+        public string OldT { 
+            get { return _oldT; }
+            set { _oldT = value;
+                NotifyOfPropertyChange(() => OldT);
+                NotifyOfPropertyChange(() => SelectedTickName);
+                NotifyOfPropertyChange(() => FullTicket);
+            }
+        }
 
+
+        public string FullTicket
+        {
+            get { return $"{SelectedTickName}  { AdultMeal } {ChildMeal} {VipSeat}"; }
         }
 
         //------------Created list for main ticket classes
-        //Bindable collection in MVVM is essentaily a list
+        //Bindable collection in MVVM is a list
         public BindableCollection<TicketModel> Ticket
         {
             get { return _ticket; }
-            set { _ticket = value; }
+            set { _ticket = value;}
         }
+
+        public BindableCollection<string> TickName
+        {
+            get { return _tickName; }
+            set { _tickName = value; }
+        }
+
+        public string SelectedTickName
+        {
+            get { return _selectedTickName; }
+            set { _selectedTickName = value;
+                NotifyOfPropertyChange(() => SelectedTickName);
+                NotifyOfPropertyChange(() => TickName);
+            }
+
+        }
+
+
 
         //-------- Constructor for selecting ticket type from combo box
         public TicketModel SelectedTicket
@@ -93,7 +147,16 @@ namespace TicketOrderingSystem.ViewModels
             {
                 _selectedTicket = value;
                 NotifyOfPropertyChange(() => SelectedTicket);
+                NotifyOfPropertyChange(()=>FullTicket);
             }
+        }       
+        // get and set constructors for addon price list
+        public BindableCollection<double> AddonPriceList
+        { 
+            get { return _addonPriceList;}
+            set { _addonPriceList = value;
+                NotifyOfPropertyChange(() => AddonPriceList);
+            } 
         }
         // get and set constructors for addon string variables
         public string AdultMeal
@@ -102,7 +165,9 @@ namespace TicketOrderingSystem.ViewModels
             {return _adultmeal;}
             set
             {_adultmeal = value;
-             NotifyOfPropertyChange(() => AdultMeal);}
+             NotifyOfPropertyChange(() => AdultMeal);
+             NotifyOfPropertyChange(() => FullTicket);
+            }
         }
         public string ChildMeal
         {
@@ -110,38 +175,58 @@ namespace TicketOrderingSystem.ViewModels
             {return _childmeal;}
             set
             { _childmeal = value;
-                NotifyOfPropertyChange(() => ChildMeal);}
+                NotifyOfPropertyChange(() => ChildMeal);
+                NotifyOfPropertyChange(() => FullTicket);
+            }
         }
 
         public string VipSeat
         {
             get { return _vipseat; }
             set { _vipseat = value;
-                NotifyOfPropertyChange(()=>VipSeat);}
+                NotifyOfPropertyChange(()=>VipSeat);
+                NotifyOfPropertyChange(() => FullTicket);
+                }
         }
 
         // --- Get and set constructors for addon prices
         public double AMealPrice
         { get { return _amealprice; } 
-          set { _amealprice = value;} }
+          set { _amealprice = value;
+                NotifyOfPropertyChange(()=>AMealPrice);
+                NotifyOfPropertyChange(() => AddonPriceList);
+            } 
+        
+        }
         public double VipPrice 
-        { get { return _vipprice; }set { _vipprice = value; } }
+        { get { return _vipprice; }
+            set { _vipprice = value; 
+                NotifyOfPropertyChange(() => VipPrice);
+                NotifyOfPropertyChange(() => AddonPriceList);
+            } 
+            
+        }
+
+
         public double CMealPrice 
         { get { return _cmealprice; }
-          set { _cmealprice = value; } 
+          set { _cmealprice = value;
+                NotifyOfPropertyChange(() => CMealPrice);
+                NotifyOfPropertyChange(() => AddonPriceList);
+            } 
         }
 
         // ------------Methods for assigning string and double values to addons when corresponding button pressed
-        public void ChildMealAdd(string _childmeal, double _cmealprice)
+        public void ChildMealAdd()
         {
             ChildMeal = "Sausage, chips & Softdrink";
             CMealPrice = 2.99;
             NotifyOfPropertyChange(() => ChildMeal);
-            NotifyOfPropertyChange(()=>CMealPrice);
+            NotifyOfPropertyChange(()=> CMealPrice);
             NotifyOfPropertyChange(() => AddonPriceList);
             NotifyOfPropertyChange(()=>_addonPriceList);
         }
-        public void AdultMealAdd(string _adultmeal, double _amealprice)
+        public void AdultMealAdd()
         {
             AdultMeal = "Pie, Chips & Pint of Beer";
             AMealPrice = 4.99;
@@ -149,7 +234,7 @@ namespace TicketOrderingSystem.ViewModels
             NotifyOfPropertyChange(()=>AMealPrice);
             NotifyOfPropertyChange(() => AddonPriceList);
         }
-        public void VIPSeatadd(string _vipseat, double _vipprice)
+        public void VIPSeatadd()
         {
             VipSeat = "VIP priority seating";
             VipPrice = 29.99;
@@ -161,12 +246,7 @@ namespace TicketOrderingSystem.ViewModels
 
 
         
-        // get ans set constructors fro addon price list
-        public BindableCollection<double> AddonPriceList
-        { 
-            get { return _addonPriceList;}
-            set { _addonPriceList = value;} 
-        }
+
 
         
         // ---- method to give sum value of all addon prices when subtotal button clicked 
@@ -179,25 +259,41 @@ namespace TicketOrderingSystem.ViewModels
         }
 
         //method to remove text from form -DELETE BEFORE SUBMISSION
-        public void ClearText(string firstname, string lastname)
+        public void ClearText(string firstname, string lastname, string fullname)
         {
-            FirstName = " ";
+            FirstName = "";
             LastName = "";
+            AdultMeal = "";
+            ChildMeal = "";
+            VipSeat = "";
+            AMealPrice = 0.00;
+            CMealPrice = 0.00;
+            VipPrice = 0.00;
+
         }
+
+        //public bool ChildChecker()
+        //{
+        //    if (string.SelectedTickName = "Adult")
+        //        return true;
+
+        //    else
+        //        return false;
+        //}
 
         //method to check if text is in form - DELETE BEFORE SUBMISSION
-        public bool CanClearText(string firstname, string lastname)
-        {
+        //public bool CanClearText(string Firstname, string Lastname)
+        //{
 
-            if (string.IsNullOrWhiteSpace (firstname) && string.IsNullOrWhiteSpace(lastname))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+        //    if (string.IsNullOrWhiteSpace (Firstname) && string.IsNullOrWhiteSpace(Lastname))
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return true;
+        //    }
+        //}
 
         //creates seperate view to show current selections. - DELETE BEFORE SUBMISSION
         public void LoadPageOne()
