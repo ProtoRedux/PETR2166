@@ -7,24 +7,30 @@
         mc:Ignorable="d" FontSize="18"
         Title="ShellView" Height="400" Width="900" WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/background.png" Stretch="Fill" />
+        </Grid.Background>
         <Grid.ColumnDefinitions>
-            <!--Column 0-->
-            <ColumnDefinition Width="20"/>
             <!--Column 1-->
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="20"/>
             <!--Column 2-->
-            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="auto"/>
             <!--Column 3-->
-            <ColumnDefinition Width="235"/>
+            <ColumnDefinition Width="30"/>
             <!--Column 4-->
+            <ColumnDefinition Width="237"/>
+            <!--Column 5-->
             <ColumnDefinition Width="30"/>
             <!--Column 6-->
-            <ColumnDefinition Width="108"/>
-            <!--Column 7-->
+            <ColumnDefinition Width="115"/>
+            <!--Column 7 -->
+            <ColumnDefinition Width="30"/>
+            <!--Column 8-->
             <ColumnDefinition Width="*"/>
-            <!-- Column 8-->
+            <!-- Column 9-->
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
             <!--Row 0-->
             <RowDefinition Height="20"/>
@@ -45,59 +51,88 @@
             <!--Row 8-->
             <RowDefinition Height="Auto"/>
             <!--Row 9-->
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
             <!--Row 10-->
-            <RowDefinition Height="60"/>
-
+            <RowDefinition Height="40"/>
+            <!--Row 11-->
+            <RowDefinition Height="50"/>
             <!--Row 12-->
             <RowDefinition Height="20"/>
 
         </Grid.RowDefinitions>
 
-        
+      
+       
+
         <!--Grid Row 1-->
-        <TextBlock Width="350" Grid.Row="1" Grid.Column="3" FontSize="20" TextWrapping="wrap">Exe River Sports Ticket Ordering System</TextBlock>
-        <TextBlock MinWidth="100" Grid.Row="1" Grid.Column="6" TextAlignment="center"> <Bold> Basket </Bold> </TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="1" 
+                   Grid.ColumnSpan="5" 
+                   FontSize="30"
+                   FontWeight="Bold"
+                   Foreground="Navy" >
+            Exe River Sports Ticket Ordering System</TextBlock>
+        <TextBlock FontSize="25"
+                   FontWeight="Bold"
+                   Grid.Row="1" 
+                   Grid.Column="6" 
+                   TextAlignment="center" 
+                   Grid.ColumnSpan="2" 
+                   Margin="30,14,0,10" 
+                   Grid.RowSpan="2"> 
+                    Final Ticket </TextBlock>
 
         <!--Grid Row 2-->
-        <TextBlock MinWidth="100" Grid.Row="2" Grid.Column="1">Select Ticket Type</TextBlock>
-        <TextBlock MinWidth="100" Grid.Row="2" Grid.Column="3">Selected Ticket Description</TextBlock>
-        <TextBlock MinWidth="100" Grid.Row="2" Grid.Column="5">Ticket Price</TextBlock>
+        <TextBlock MinWidth="100" Grid.Row="2" Grid.Column="1"><Bold>Select Ticket Type</Bold></TextBlock>
+        <TextBlock MinWidth="100" Grid.Row="2" Grid.Column="3" TextAlignment="Center"><Bold>Selected Ticket Description</Bold></TextBlock>
+        <TextBlock MinWidth="100" Grid.Row="2" Grid.Column="5" TextAlignment="Center"><Bold>Ticket Price</Bold></TextBlock>
+        <Border BorderBrush="Black" BorderThickness="2" Grid.Row="2" Grid.RowSpan="7" Grid.Column="7">
+            <TextBlock Background="Moccasin" x:Name="SelectedTicket_Description"  Grid.Row="2"  Grid.RowSpan="8" Grid.Column="7"  TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+        </Border>
+
         <!--Grid Row 3-->
-        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="Tickets"
+        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="Tickets" 
                                     ItemsSource="{Binding Tickets}"  
                                     SelectedIndex="0"
                                     SelectedItem="{Binding SelectedTicket}"
                                     IsEnabled="{Binding CoBoxEn}"
                                     DisplayMemberPath="Name" MinWidth="120" />
-        <TextBlock MinWidth="100" Grid.Row="3" Grid.Column="3" Text="{Binding SelectedTicket.Name}" ></TextBlock>
-        <TextBlock Grid.Row="3" Grid.Column="5" Text="{Binding SelectedTicket.Price, StringFormat=£{0}}" />
+        <TextBlock MinWidth="100" Grid.Row="3" Grid.Column="3" TextAlignment="Center" Text="{Binding SelectedTicket.Name}" ></TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="5" TextAlignment="Center" Text="{Binding SelectedTicket.Price, StringFormat=£{0}}" />
         <!--Grid Row 4-->
-        <TextBlock MinWidth="100" Grid.Row="4" Grid.Column="1">Add-ons</TextBlock>
-        <TextBlock MinWidth="100" Grid.Row="4" Grid.Column="3">Add-on Description</TextBlock>
-        <TextBlock MinWidth="100" Grid.Row="4" Grid.Column="5">Add-on Price</TextBlock>
+        <TextBlock MinWidth="100" Grid.Row="4" Grid.Column="1" TextAlignment="Center"><Bold>Add-ons</Bold></TextBlock>
+        <TextBlock MinWidth="100" Grid.Row="4" Grid.Column="3" TextAlignment="Center"><Bold>Add-on Description</Bold></TextBlock>
+        <TextBlock MinWidth="100" Grid.Row="4" Grid.Column="5" TextAlignment="Center"><Bold>Add-on Price</Bold></TextBlock>
         <!--Grid Row 5-->
         <Button x:Name="AddAMeal"  Grid.Row="5" Grid.Column="1" IsEnabled="{Binding AmealEnabled}">Add Adult Meal</Button>
-        <TextBlock Grid.Row="5" Grid.Column="3" x:Name="AMealDesc"></TextBlock>
-        <TextBlock MinWidth="100" Grid.Row="5" Grid.Column="5" Text="{Binding AmealPrice, StringFormat=£{0}}"></TextBlock>
+        <TextBlock Grid.Row="5" Grid.Column="3" TextAlignment="Center" x:Name="AMealDesc"></TextBlock>
+        <TextBlock MinWidth="100" Grid.Row="5" Grid.Column="5" TextAlignment="Center" Text="{Binding AmealPrice, StringFormat=£{0}}"></TextBlock>
         <!-- Grid Row 6-->
         <Button x:Name="AddCMeal"  Grid.Row="6" Grid.Column="1" IsEnabled="{Binding CMealEnabled}">Add Child Meal</Button>
-        <TextBlock Grid.Row="6" Grid.Column="3" x:Name="CMealDesc"></TextBlock>
-        <TextBlock MinWidth="100" Grid.Row="6" Grid.Column="5" Text="{Binding CMealPrice, StringFormat=£{0}}"></TextBlock>
+        <TextBlock Grid.Row="6" Grid.Column="3" TextAlignment="Center" x:Name="CMealDesc"></TextBlock>
+        <TextBlock MinWidth="100" Grid.Row="6" Grid.Column="5" TextAlignment="Center" Text="{Binding CMealPrice, StringFormat=£{0}}"></TextBlock>
         <!-- Grid Row 7-->
         <Button x:Name ="AddVIP"  Grid.Row="7" Grid.Column="1" IsEnabled="{Binding VIPEnabled}">Add VIP Seating</Button>
-        <TextBlock Grid.Row="7" Grid.Column="3" x:Name="VIPDesc"></TextBlock>
-        <TextBlock MinWidth="100" Grid.Row="7" Grid.Column="5" Text="{Binding VipPrice, StringFormat=£{0}}" ></TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="3" TextAlignment="Center" Padding="3,0,0,0" x:Name="VIPDesc"></TextBlock>
+        <TextBlock MinWidth="100" Grid.Row="7" Grid.Column="5" TextAlignment="Center"  Text="{Binding VipPrice, StringFormat=£{0}}" ></TextBlock>
 
         <!-- Grid Row 8-->
-        <Button x:Name="ResetPage" Grid.Row="8" Grid.Column="1">Restart</Button>
-        <Button x:Name="Purchase" Grid.Row="10" Grid.Column="3">Finalise Ticket</Button>
+        
         <!-- Grid Row 9-->
-        <TextBlock x:Name="price" Text="{Binding Total, StringFormat=£{0}}" Grid.Row="9" Grid.Column="6"/>
+
         <!-- Grid Row 10 -->
-        <TextBlock x:Name="SelectedTicket_Description"  Grid.Row="2"  Grid.RowSpan="9" Grid.Column="6"  TextWrapping="Wrap"></TextBlock>
+        <Button x:Name="Purchase" Grid.Row="10" Grid.Column="3" FontWeight="UltraBlack" IsEnabled="{Binding FinalEn}">Finalise Ticket</Button>
+        <Button x:Name="ResetPage" Grid.Row="10" Grid.Column="1" Background="Navy" Foreground="Red" FontStyle="Italic" FontWeight="UltraBold">Restart</Button>
+        <TextBlock Grid.Row="10" Grid.Column="5" Grid.ColumnSpan="2" Padding="25,6,0,0"> <Bold>Ticket Total:</Bold></TextBlock>
+        <TextBlock  FontSize="20" 
+                    Foreground="Crimson"
+                    Background="Navy"
+                    FontWeight="Heavy" 
+                    Padding="0,5,0,0"  
+                    x:Name="price" Text="{Binding Total, StringFormat=£{0}}" 
+                    Grid.Row="10" Grid.Column="7" TextAlignment="Center"/>
+        <Border BorderThickness="2" BorderBrush="Navy" Grid.Row="10" Grid.Column="7">  </Border>
         <!--Grid Row 11-->
-        
-        
+
+
     </Grid>
 </Window>

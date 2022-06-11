@@ -12,22 +12,22 @@ namespace TicketOrderingSystem.ViewModels
     public class ShellViewModel : Screen
     {
         //Private fields used with preset values to enable disabling of buttons and other functions
-        private bool _vIPEnabled = true;
-        private bool _coboxEn = true;
-        private bool _aMealEnabled = true;
-        private bool _cMealEnabled = true;
-        private bool _payEnabled = true;
-        private double _total;
         private TicketModel _selectedTicket; //Current selected ticket
+        private bool _vIPEn = true;
+        private bool _coboxEn = true;
+        private bool _aMealEn = true;
+        private bool _cMealEn = true;
+        private bool _finalEn = true;
+        private double _total;
         private double _vipPrice = VIPAddonModel.VIPPrice;
         private double _aMealPrice = AdultMealAddonModel.AMealPrice;
         private double _cMealPrice = ChildMealAddonModel.CMealPrice;
         private string _vIPDesc = " ";
         private string _aMealDesc = " ";
-        private string _cMealDesc = "  ";
+        private string _cMealDesc = " ";
 
 
-        //initilastion of a private Bindable collection to display tickets in combi box
+        //initilastion of a private Bindable collection to display tickets in combo box
         private BindableCollection<TicketModel> _tickets;
 
         //initialisation of primary ticket objects for ticket list above. This will take values from the associated classes
@@ -35,13 +35,20 @@ namespace TicketOrderingSystem.ViewModels
         public TicketModel Child { get; set; } = new ChildTicketModel(); //Child Ticket Model   
         public TicketModel Member { get; set; } = new OAPTicketModel(); //OAP Ticket Model
 
-        //initialisation and encapsulation of public prices and the boolean to control the button
-
+        //Initialsation and encapsulation of bools and double not attached to decorator buttons but other function buttons.
         public bool CoBoxEn
         { 
             get { return _coboxEn; }
             set { _coboxEn = value; 
                 NotifyOfPropertyChange(() => CoBoxEn);
+                }
+        }
+
+        public bool FinalEn
+        {
+            get { return _finalEn; }
+            set { _finalEn = value; 
+                NotifyOfPropertyChange(() => FinalEn);
                 }
         }
         public double Total
@@ -54,18 +61,18 @@ namespace TicketOrderingSystem.ViewModels
             }
         }
 
-
+        //initialisation and encapsulation of public prices and descriptions and the boolean to control the associated buttons
         public double VipPrice
         { get { return _vipPrice; }
           set { _vipPrice = value;
                 //NotifyOfPropertyChange(() => VipPrice);
               } 
         }
-        public bool VIPEnabled
+        public bool VIPEn
         {
-            get { return _vIPEnabled; }
-            set { _vIPEnabled = value;
-            NotifyOfPropertyChange(()=>VIPEnabled);}
+            get { return _vIPEn; }
+            set { _vIPEn = value;
+            NotifyOfPropertyChange(()=>VIPEn);}
         }
         public string VIPDesc
         {
@@ -78,15 +85,15 @@ namespace TicketOrderingSystem.ViewModels
         { 
             get { return _aMealPrice; }
             set { _aMealPrice = value;
-            //NotifyOfPropertyChange(()=>AmealPrice);
-            }
+                NotifyOfPropertyChange(()=>AmealPrice);
+                }
         }
 
-        public bool AmealEnabled
+        public bool AmealEn
         { 
-            get { return _aMealEnabled; } 
-            set { _aMealEnabled = value;
-                NotifyOfPropertyChange(() => AmealEnabled);
+            get { return _aMealEn; } 
+            set { _aMealEn = value;
+                NotifyOfPropertyChange(() => AmealEn);
                 } 
         }
 
@@ -102,14 +109,14 @@ namespace TicketOrderingSystem.ViewModels
         {
             get { return _cMealPrice;}
             set { _cMealPrice = value; 
-                //NotifyOfPropertyChange(()=>CMealPrice);
+                NotifyOfPropertyChange(()=>CMealPrice);
                 }
         }
-        public bool CMealEnabled
+        public bool CMealEn
         {
-            get { return _cMealEnabled;}
-            set { _cMealEnabled = value;
-                NotifyOfPropertyChange(()=>CMealEnabled) ;
+            get { return _cMealEn;}
+            set { _cMealEn = value;
+                NotifyOfPropertyChange(()=>CMealEn) ;
                 }
         }
         public string CMealDesc
@@ -120,6 +127,7 @@ namespace TicketOrderingSystem.ViewModels
                 }
         }
 
+        //public encapsulation of private ticket objects for use in combo box
         public BindableCollection<TicketModel> Tickets
         { 
             get { return _tickets; }
@@ -130,73 +138,89 @@ namespace TicketOrderingSystem.ViewModels
         
         }
 
-        public ShellViewModel() //Constructor
+        //Constructors for the solution 
+        public ShellViewModel() 
         {
-            _selectedTicket = Adult; //Sets selected ticket field to Adult
-            Total = _selectedTicket.Price; //Initially sets the cost to the first ticket selected
-            Tickets = new BindableCollection<TicketModel>(); //Initialises Ticket Collection
-            Tickets.Add(Adult); //Adds tickets to collection
+            //On load presets the selected ticket field in the combo box to Adult
+            _selectedTicket = Adult;
+            //Initially sets the price to the selected ticket (default: adult)
+            Total = _selectedTicket.Price; 
+            //Initialises Ticket BindableCollection
+            Tickets = new BindableCollection<TicketModel>(); 
+            //Adds the previously created ticket objects to the Bindable collection
+            Tickets.Add(Adult); 
             Tickets.Add(Child);
             Tickets.Add(Member);
         }
-        public TicketModel SelectedTicket //The ticket that is currently selected
+        //Selected ticket object encapsulation
+        public TicketModel SelectedTicket 
         {
-            get { return _selectedTicket; } //Returns _ticket field
+            get { return _selectedTicket; } 
             set
             {
                 _selectedTicket = value;
                 NotifyOfPropertyChange(() => SelectedTicket);
                 NotifyOfPropertyChange(() => Total);
-                Subtotal(); //Calculates cost on ticket change
+                Subtotal(); 
             }
         }
 
+        // Method attached to add VIP seating button to disbale the button once clicked adject the description to be shown once clicked
+        // and add the decorator to the selected ticket
         public void AddVIP()
         {
-            VIPEnabled = false;
+            VIPEn = false;
             CoBoxEn = false;
             VIPDesc = "Upgraded to VIP seating area";
             SelectedTicket = new VIPAddonModel(SelectedTicket);
         }
 
+        // Method attached to add VIP seating button to disbale the button once clicked adject the description to be shown once clicked
+        // and add the decorator to the selected ticket
         public void AddAMeal()
         {
-            AmealEnabled = false;
+            AmealEn = false;
             CoBoxEn = false;
             AMealDesc = "Addition of adult meal";
             SelectedTicket = new AdultMealAddonModel(SelectedTicket);
         }
-
+        // Method attached to add VIP seating button to disbale the button once clicked adject the description to be shown once clicked
+        // and add the decorator to the selected ticket
         public void AddCMeal()
         {
-            CMealEnabled = false;
+            CMealEn = false;
             CoBoxEn= false;
             CMealDesc = "Addition of child meal";
             SelectedTicket = new ChildMealAddonModel(SelectedTicket);
         }
-
+        //Method designed to recalculate and show the ticket price once decorators are added.
+        //The math functions are used to round the result to two decimal places. This is used as doubles and other floating point numbers can be slightly inaccurate
         public void Subtotal ()
         {
             Total = SelectedTicket.Cost();
             Total = Math.Round(Total, 2, MidpointRounding.AwayFromZero);
         }
 
+        //Method created and attached to reset button that will return page to default values
         public void ResetPage()
         {
             SelectedTicket = Adult;
             CoBoxEn = true;
-            AmealEnabled = true;
-            CMealEnabled = true;
-            VIPEnabled = true;
+            AmealEn = true;
+            CMealEn = true;
+            VIPEn = true;
+            FinalEn = true;
 
         }
 
+        //Method to simulate finalising a ticket locks out all buttons preventing further changes until reset method is called to restore page to default.
         public void Purchase()
         {
             CoBoxEn = false;
-            AmealEnabled=false;
-            CMealEnabled=false;
-            VIPEnabled=false;
+            AmealEn=false;
+            CMealEn=false;
+            VIPEn=false;
+            FinalEn = false;
         }
     }
 }
