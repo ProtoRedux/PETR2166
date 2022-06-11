@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicketOrderingSystem.Models
 {
-    public abstract class AddonModel:TicketModel
+    internal class DecoratorModel
     {
-        public abstract override string Description { get;}
-        public abstract override double Price { get;}
     }
 }
