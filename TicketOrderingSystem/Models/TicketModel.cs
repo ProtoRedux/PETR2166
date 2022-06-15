@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace TicketOrderingSystem.Models
 {
-    public class TicketModel
+    public abstract class TicketModel
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public Double Price { get; set; }
-        
+        public virtual string Name { get; set; }
+        public virtual string Description { get; set; }
+        public virtual double Price { get; set; }
+        public abstract double Cost();
+
     }
 }
