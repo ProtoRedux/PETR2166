@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TicketOrderingSystem.Views" xmlns:viewmodels="clr-namespace:TicketOrderingSystem.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ShellViewModel}"
+        xmlns:local="clr-namespace:TicketOrderingSystem.Views" 
+        xmlns:viewmodels="clr-namespace:TicketOrderingSystem.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ShellViewModel}"
         mc:Ignorable="d" FontSize="18"
         Title="ShellView" Height="400" Width="900" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -103,15 +104,15 @@
         <TextBlock MinWidth="100" Grid.Row="4" Grid.Column="3" TextAlignment="Center"><Bold>Add-on Description</Bold></TextBlock>
         <TextBlock MinWidth="100" Grid.Row="4" Grid.Column="5" TextAlignment="Center"><Bold>Add-on Price</Bold></TextBlock>
         <!--Grid Row 5-->
-        <Button x:Name="AddAMeal"  Grid.Row="5" Grid.Column="1" IsEnabled="{Binding AmealEnabled}">Add Adult Meal</Button>
+        <Button x:Name="AddAMeal"  Grid.Row="5" Grid.Column="1" IsEnabled="{Binding AmealEn}">Add Adult Meal</Button>
         <TextBlock Grid.Row="5" Grid.Column="3" TextAlignment="Center" x:Name="AMealDesc"></TextBlock>
         <TextBlock MinWidth="100" Grid.Row="5" Grid.Column="5" TextAlignment="Center" Text="{Binding AmealPrice, StringFormat=£{0}}"></TextBlock>
         <!-- Grid Row 6-->
-        <Button x:Name="AddCMeal"  Grid.Row="6" Grid.Column="1" IsEnabled="{Binding CMealEnabled}">Add Child Meal</Button>
+        <Button x:Name="AddCMeal"  Grid.Row="6" Grid.Column="1" IsEnabled="{Binding CMealEn}">Add Child Meal</Button>
         <TextBlock Grid.Row="6" Grid.Column="3" TextAlignment="Center" x:Name="CMealDesc"></TextBlock>
         <TextBlock MinWidth="100" Grid.Row="6" Grid.Column="5" TextAlignment="Center" Text="{Binding CMealPrice, StringFormat=£{0}}"></TextBlock>
         <!-- Grid Row 7-->
-        <Button x:Name ="AddVIP"  Grid.Row="7" Grid.Column="1" IsEnabled="{Binding VIPEnabled}">Add VIP Seating</Button>
+        <Button x:Name ="AddVIP"  Grid.Row="7" Grid.Column="1" IsEnabled="{Binding VIPEn}">Add VIP Seating</Button>
         <TextBlock Grid.Row="7" Grid.Column="3" TextAlignment="Center" Padding="3,0,0,0" x:Name="VIPDesc"></TextBlock>
         <TextBlock MinWidth="100" Grid.Row="7" Grid.Column="5" TextAlignment="Center"  Text="{Binding VipPrice, StringFormat=£{0}}" ></TextBlock>
 
